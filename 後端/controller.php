@@ -8,9 +8,7 @@ if(! isset($_REQUEST["act"])) {
         exit(0);
 }
 $act =$_REQUEST["act"];
-$result=getMoney();
-$rs=mysqli_fetch_assoc($result);
-$money=$rs['money'];
+$money=getMoney();
 switch($act) {
         //擴展分店
         case "buy":
@@ -28,18 +26,13 @@ switch($act) {
                                 echo "金錢不足";
                                 header("Refresh: 0.3; url=index.php");
                                 break;
-                        default:
-                                echo "出現異常錯誤";
-                                break;
                 }
-                break;
-                header("Refresh: 0.3; url=index.php");
                 break;
         //從總公司調貨至分店
         case "transport":
-                $goods=$_GET['goods'];
-                $store=$_GET['store'];
-                $howmany=30;
+                $goods=$_POST['goods'];
+                $store=$_POST['store'];
+                $howmany=$_POST['howmany'];
                 $status=post($goods,$store,$howmany);
                 /*
                 status=
@@ -51,25 +44,29 @@ switch($act) {
                 switch ($status) {
                         case '11':
                                 echo "運送成功";
-                                header("Refresh: 0.3; url=index.php");
+                                //header("Refresh: 0.3; url=index.php");
                                 break;
                         case '12':
                                 echo "儲存空間不夠多，已幫您自動計算數量並填滿倉庫";
-                                header("Refresh: 0.3; url=index.php");
+                                //header("Refresh: 0.3; url=index.php");
                                 break;
                         case '21':
                                 echo "總公司存貨不足";
-                                header("Refresh: 0.3; url=index.php");
+                                //header("Refresh: 0.3; url=index.php");
                                 break;
                         case '22':
                                 echo "儲存空間已滿了無法運送";
-                                header("Refresh: 0.3; url=index.php");
+                                //header("Refresh: 0.3; url=index.php");
                                 break;
                         default:
                                 echo "出現異常錯誤";
                                 break;
                 }
                 break;
-        default:
+        case "sell":
+                $income=sell($money);
+                echo "獲得了".$income."元";
+                header("Refresh: 0.3; url=index.php");
+                break;
 }
 ?>

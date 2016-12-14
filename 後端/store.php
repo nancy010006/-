@@ -13,7 +13,7 @@ function buystore($money) {
         $price=$rs['price'];
         $storeid=$rs['storeid'];
         $exceed=$money-$price;
-        if ($exceed>=0 && $rs['status']) { //if name is not empty
+        if ($exceed>=0 && $rs['status']==0) { //if name is not empty
                 $moneysql = "update store set status = 1 where storeid = '$storeid';";
                 $storesql = "update company set money = '$exceed' where id = 1;";
                 mysqli_query($conn, $moneysql);
@@ -85,7 +85,7 @@ function post($goods,$store,$howmany) {
                         //只運送到滿
                         $companysql = "update company set $which = $stock-$exceed;";
                         mysqli_query($conn, $companysql);
-                        $storesql = "update store set $which = $howmany+$exceed where storeid = $store;";
+                        $storesql = "update store set $which = $account+$exceed where storeid = $store;";
                         mysqli_query($conn, $storesql);
                         return 12;
                 }
@@ -93,9 +93,49 @@ function post($goods,$store,$howmany) {
                 return 22;
         }
 }
-//隨機售出商品
-function sell(){
+//隨機售出所有已開啟分店之商品
+function sell($money){
+        global $conn;
+        $sql = "select * from store;";
+        $result=mysqli_query($conn,$sql);
+        $rs=mysqli_fetch_assoc($result);
+        //已開啟的分店
+        while($rs['status']!=0){
+                //取得各分店代號及存貨
+                $storeid=$rs['storeid'];
+                $goodsa=getOtherGoodsA($storeid);
+                $goodsb=getOtherGoodsB($storeid);
+                $goodsc=getOtherGoodsC($storeid);
+                //隨機設定賣出的數量 如果是0要處理 不然無法取餘數
+                if($goodsa>0){
+                        $randa=rand()%($goodsa+1);
+                }else{
+                        $randa=0;
+                }
+                if($goodsb>0){
+                        $randb=rand()%($goodsb+1);
+                }else{
+                        $randb=0;
+                }
+                if($goodsc>0){
+                        $randc=rand()%($goodsc+1);
+                }else{
+                        $randc=0;
+                }
+                //
+                $sql = "update store set goodsa = $goodsa-$randa where storeid=$storeid;";
+                        mysqli_query($conn, $sql);
+                $sql = "update store set goodsb = $goodsb-$randb where storeid=$storeid;";
+                        mysqli_query($conn, $sql);
+                $sql = "update store set goodsc = $goodsc-$randc where storeid=$storeid;";
+                        mysqli_query($conn, $sql);
 
+                //計算獲取的金額
+                        $income=$randa*(100+rand()%50)+$randb*(200+rand()%50)+$randc*(125+rand()%50);
+                $sql = "update company set money = $money+$income;";
+                        mysqli_query($conn, $sql);
+                return $income;
+        }
 }
 /*
 function getMsgListbyability($ability) {
