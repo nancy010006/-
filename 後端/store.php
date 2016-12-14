@@ -69,10 +69,18 @@ function post($goods,$store,$howmany) {
         $exceed = $bound-$account;
         //which為送至哪一間分店
         $which = "goods".$goods;
-        if($stock<$howmany){
+        if($stock<$howmany &&$stock!=0){
+                $companysql = "update company set $which = 0;";
+                mysqli_query($conn, $companysql);
+                $storesql = "update store set $which = $account+$stock where storeid = $store;";
+                mysqli_query($conn, $storesql);
                 return 21;
         }
         if ($exceed>0) { //if name is not empty
+                if($stock==0&&$howmany>0){
+                        //沒庫存
+                        return 0;
+                }
                 if($howmany<=$exceed){
                         //全運送
                         $companysql = "update company set $which = $stock-$howmany;";
@@ -89,7 +97,9 @@ function post($goods,$store,$howmany) {
                         mysqli_query($conn, $storesql);
                         return 12;
                 }
-        } else {
+        } else if($howmany==0){
+                return 23;
+        }else{
                 return 22;
         }
 }
@@ -100,6 +110,7 @@ function sell($money){
         $result=mysqli_query($conn,$sql);
         $rs=mysqli_fetch_assoc($result);
         //已開啟的分店
+        $sum=0;
         while($rs['status']!=0){
                 //取得各分店代號及存貨
                 $storeid=$rs['storeid'];
@@ -129,13 +140,14 @@ function sell($money){
                         mysqli_query($conn, $sql);
                 $sql = "update store set goodsc = $goodsc-$randc where storeid=$storeid;";
                         mysqli_query($conn, $sql);
-
                 //計算獲取的金額
                         $income=$randa*(100+rand()%50)+$randb*(200+rand()%50)+$randc*(125+rand()%50);
                 $sql = "update company set money = $money+$income;";
                         mysqli_query($conn, $sql);
-                return $income;
+                $sum+=$income;
+                $rs=mysqli_fetch_assoc($result);
         }
+        return $sum;
 }
 /*
 function getMsgListbyability($ability) {

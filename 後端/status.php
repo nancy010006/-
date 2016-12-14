@@ -8,6 +8,7 @@ function getMoney() {
         $rs = mysqli_fetch_assoc($result);
         return $rs['money'];
 }
+
 //取得總店A存貨數量
 function getGoodsA() {
         global $conn;
