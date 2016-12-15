@@ -69,14 +69,14 @@ function post($goods,$store,$howmany) {
         $exceed = $bound-$account;
         //which為送至哪一間分店
         $which = "goods".$goods;
-        if($stock<$howmany &&$stock!=0){
+        if ($exceed>0) { //只要不超過儲存空間
+                if($stock<$howmany &&$stock!=0){
                 $companysql = "update company set $which = 0;";
                 mysqli_query($conn, $companysql);
                 $storesql = "update store set $which = $account+$stock where storeid = $store;";
                 mysqli_query($conn, $storesql);
                 return 21;
         }
-        if ($exceed>0) { //if name is not empty
                 if($stock==0&&$howmany>0){
                         //沒庫存
                         return 0;
@@ -104,7 +104,7 @@ function post($goods,$store,$howmany) {
         }
 }
 //隨機售出所有已開啟分店之商品
-function sell($money){
+function sell($money,$pricea,$priceb,$pricec){
         global $conn;
         $sql = "select * from store;";
         $result=mysqli_query($conn,$sql);
@@ -141,61 +141,53 @@ function sell($money){
                 $sql = "update store set goodsc = $goodsc-$randc where storeid=$storeid;";
                         mysqli_query($conn, $sql);
                 //計算獲取的金額
-                        $income=$randa*(100+rand()%50)+$randb*(200+rand()%50)+$randc*(125+rand()%50);
-                $sql = "update company set money = $money+$income;";
-                        mysqli_query($conn, $sql);
+                $income=$randa*$pricea+$randb*$priceb+$randc*$pricec;
                 $sum+=$income;
                 $rs=mysqli_fetch_assoc($result);
         }
+        $sql = "update company set money = $money+$sum;";
+                mysqli_query($conn, $sql);
         return $sum;
 }
-/*
-function getMsgListbyability($ability) {
-        global $conn;
-        $sql = "select * from resume where ability like '%$ability%' order by salary desc;";
-        return mysqli_query($conn,$sql);
-}
-
-function getyouremployee($boss){
-        global $conn;
-        $sql = "select * from user where boss = '$boss';";
-        return mysqli_query($conn,$sql);
-}
-
-function getfeedback($userid){
-        global $conn;
-        $sql = "select * from satisfaction where name = '$userid';";
-        return mysqli_query($conn,$sql);
-}
-
-function searchbybaility($ability){
-        global $conn;
-        $sql = "select * from resume like '$ability';";
-        return mysqli_query($conn,$sql);
-}
-
-function addMsg($name, $ability, $salary,$userid,$birthday) {
-        global $conn;
-        $name=mysqli_real_escape_string($conn,$name);
-        $ability=mysqli_real_escape_string($conn,$ability);
-        $salary=mysqli_real_escape_string($conn,$salary);
-        $userid=mysqli_real_escape_string($conn,$userid);
-        $birthday=mysqli_real_escape_string($conn,$birthday);
-        if ($name) { //if name is not empty
-                $sql = "insert into resume (name, ability, salary,userid,birthday) values ('$name', '$ability','$salary','$userid','$birthday');";
-                return mysqli_query($conn, $sql);
-        } else {
-                return false;
+function order($money,$costa,$costb,$costc,$accounta,$accountb,$accountc){
+        $cost=$costa*$accounta+$costb*$accountb+$costc*$accountc;
+        echo $cost;
+        if($money>$cost){
+                global $conn;
+                //撈存貨
+                $sql = "select * from company;";
+                $result=mysqli_query($conn,$sql);
+                $stockrs=mysqli_fetch_assoc($result);
+                $stocka=$stockrs['goodsa'];
+                $stockb=$stockrs['goodsb'];
+                $stockc=$stockrs['goodsc'];
+                //更新金錢
+                $sql = "update company set money = $money-$cost;";
+                mysqli_query($conn,$sql);
+                //更新存貨
+                $sql = "update company set goodsa = $stocka+$accounta;";
+                mysqli_query($conn,$sql);
+                $sql = "update company set goodsb = $stockb+$accountb;";
+                mysqli_query($conn,$sql);
+                $sql = "update company set goodsc = $stockc+$accountc;";
+                mysqli_query($conn,$sql);
+                return 1;
         }
+        else
+                return 0;
 }
-*/
-/*
-function delMsg($resumeid) {
+//設定價格 fixedprice為固定價格 range為浮動範圍
+function setprice($name,$fixedprice,$range){
         global $conn;
-        $sql = "delete from resume where id='$resumeid'";
-        return mysqli_query($conn,$sql);
+        $price=$fixedprice+rand()%$range;
+        $sql = "update goods set price = $price where name='$name';";
+        mysqli_query($conn,$sql);
 }
-
-*/
-
+//設定成本 fixedprice為固定成本 range為浮動範圍
+function setcost($name,$fixedcost,$range){
+        global $conn;
+        $cost=$fixedcost+rand()%$range;
+        $sql = "update goods set cost = $cost where name='$name';";
+        mysqli_query($conn,$sql);
+}
 ?>

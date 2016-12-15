@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2016-12-09 15:05:41
+-- 產生時間： 2016-12-15 04:48:07
 -- 伺服器版本: 10.1.16-MariaDB
 -- PHP 版本： 7.0.9
 
@@ -39,7 +39,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`id`, `money`, `goodsa`, `goodsb`, `goodsc`) VALUES
-(1, 8000, 340, 320, 0);
+(1, 117857, 150, 150, 150);
 
 -- --------------------------------------------------------
 
@@ -50,17 +50,19 @@ INSERT INTO `company` (`id`, `money`, `goodsa`, `goodsb`, `goodsc`) VALUES
 CREATE TABLE `goods` (
   `id` int(11) NOT NULL,
   `name` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `delay` int(11) NOT NULL
+  `delay` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `cost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 資料表的匯出資料 `goods`
 --
 
-INSERT INTO `goods` (`id`, `name`, `delay`) VALUES
-(1, 'a', 3),
-(2, 'b', 4),
-(3, 'c', 5);
+INSERT INTO `goods` (`id`, `name`, `delay`, `price`, `cost`) VALUES
+(1, 'a', 3, 183, 122),
+(2, 'b', 4, 250, 159),
+(3, 'c', 5, 435, 244);
 
 -- --------------------------------------------------------
 
@@ -85,10 +87,10 @@ CREATE TABLE `store` (
 --
 
 INSERT INTO `store` (`storeid`, `status`, `price`, `bounda`, `boundb`, `boundc`, `goodsa`, `goodsb`, `goodsc`) VALUES
-(1, 0, 500, 100, 50, 50, 100, 50, 0),
-(2, 0, 1000, 80, 80, 80, 0, 80, 0),
-(3, 0, 1500, 100, 50, 50, 0, 0, 0),
-(4, 0, 2000, 100, 50, 50, 0, 0, 0);
+(1, 1, 500, 100, 50, 50, 4, 3, 0),
+(2, 1, 1000, 80, 80, 80, 0, 35, 0),
+(3, 1, 1500, 100, 50, 50, 0, 0, 13),
+(4, 0, 2000, 100, 50, 50, 100, 0, 40);
 
 --
 -- 已匯出資料表的索引

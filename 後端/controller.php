@@ -46,8 +46,14 @@ switch($act) {
                 22      分店的空間已滿
                 0       沒庫存
                 */
-                if($goodsastatus==11&&$goodsbstatus==11&&$goodscstatus==11){
-                        echo "運送成功";
+                if($goodsastatus==11){
+                        echo "a貨品運送成功<br>";
+                }
+                if($goodsbstatus==11){
+                        echo "b貨品運送成功<br>";
+                }
+                if($goodscstatus==11){
+                        echo "c貨品運送成功<br>";
                 }
                 if($goodsastatus==12){
                         echo "分店儲存a貨品空間不足 自動填滿<br>";
@@ -85,11 +91,37 @@ switch($act) {
                 if($goodscstatus==0){
                         echo "總店已無c庫存<br>";
                 }
+                // header("Refresh: 0.3; url=index.php");
                 break;
         case "sell":
-                $income=sell($money);
+                $income=sell($money,getprice("a"),getprice("b"),getprice("c"));
                 echo "獲得了".$income."元";
                 header("Refresh: 0.3; url=index.php");
                 break;
+        case "setcost":
+                setcost("a",100,50);
+                setcost("b",150,50);
+                setcost("c",200,50);
+                echo "設定成功";
+                header("Refresh: 0.3; url=index.php");
+                break;
+        case "setprice":
+        setprice("a",150,50);
+        setprice("b",250,60);
+        setprice("c",350,100);
+        echo "設定成功";
+        header("Refresh: 0.3; url=index.php");
+                break;
+        case "order":
+                $accounta=$_POST['accounta'];
+                $accountb=$_POST['accountb'];
+                $accountc=$_POST['accountc'];
+                if(order($money,getcost("a"),getcost("b"),getcost("c"),$accounta,$accountb,$accountc)==1){
+                        echo "進貨成功";
+                }else{
+                        echo "金錢不足";
+                }
+        header("Refresh: 0.3; url=index.php");
+        break;
 }
 ?>

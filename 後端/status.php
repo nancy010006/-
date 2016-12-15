@@ -57,4 +57,28 @@ function getOtherGoodsC($storeid) {
         $rs = mysqli_fetch_assoc($result);
         return $rs['goodsc'];
 }
+//取得商品運送延遲
+function getperiod($name){
+        global $conn;
+        $sql = "select delay from goods where name='$name';";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['delay'];
+}
+//取得商品售價
+function getprice($name){
+        global $conn;
+        $sql = "select price from goods where name='$name';";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['price'];
+}
+//取得商品成本
+function getcost($name){
+        global $conn;
+        $sql = "select cost from goods where name='$name';";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['cost'];
+}
 ?>
