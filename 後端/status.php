@@ -81,4 +81,11 @@ function getcost($name){
         $rs = mysqli_fetch_assoc($result);
         return $rs['cost'];
 }
+function getStoreStatus($storeid) {
+        global $conn;
+        $sql = "select status from store where storeid=$storeid;";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['status'];
+}
 ?>

@@ -15,16 +15,16 @@ switch($act) {
                 $status=buystore($money);
                 switch ($status) {
                         case '11':
-                                echo "購買成功";
-                                header("Refresh: 0.3; url=index.php");
+                                echo "<script>alert('擴展成功')</script>";
+                                header("Refresh: 0; url=index.php");
                                 break;
                         case '12':
-                                echo "擴展完畢";
-                                header("Refresh: 0.3; url=index.php");
+                                echo "<script>alert('擴展完畢')</script>";
+                                header("Refresh: 0; url=index.php");
                                 break;
                         case '21':
-                                echo "金錢不足";
-                                header("Refresh: 0.3; url=index.php");
+                                echo "<script>alert('金額不足')</script>";
+                                header("Refresh: 0; url=index.php");
                                 break;
                 }
                 break;
@@ -117,11 +117,12 @@ switch($act) {
                 $accountb=$_POST['accountb'];
                 $accountc=$_POST['accountc'];
                 if(order($money,getcost("a"),getcost("b"),getcost("c"),$accounta,$accountb,$accountc)==1){
-                        echo "進貨成功";
+                        echo "<script>alert('預訂成功')</script>";
+
                 }else{
-                        echo "金錢不足";
+                        echo "<script>alert('金額不足')</script>";
                 }
-        header("Refresh: 0.3; url=index.php");
+        header("Refresh: 0; url=index.php");
         break;
 }
 ?>
