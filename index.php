@@ -5,6 +5,12 @@ $goodsa=getGoodsA();
 $goodsb=getGoodsB();
 $goodsc=getGoodsC();
 $day=getday();
+$CostA=getcost('a');
+$CostB=getcost('b');
+$CostC=getcost('c');
+$PriceA=getprice('a');
+$PriceB=getprice('b');
+$PriceC=getprice('c');
 $NowA1=getOtherGoodsA(1); $MaxA1=getotherstockA(1);
 $NowB1=getOtherGoodsB(1); $MaxB1=getotherstockB(1);
 $NowC1=getOtherGoodsC(1); $MaxC1=getotherstockC(1);
@@ -66,13 +72,13 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                 <table id=buystock border="0">
                                     <tr>
                                         <td>
-                                            Bread
+                                            <?php echo "<img src='images/1.png' width='50' height='50'> 單價:$CostA"?>
                                         </td>
                                         <td>
-                                            Ice cream
+                                            <?php echo "<img src='images/2.png' width='50' height='50'> 單價:$CostB"?>
                                         </td>
                                         <td>
-                                            Soft drinks
+                                            <?php echo "<img src='images/3.png' width='50' height='50'> 單價:$CostC"?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -96,16 +102,16 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                 <table id=buystock border="0">
                                     <tr>
                                         <td>
-                                            選擇分店
+                                            <span style="font-weight:bold;">選擇分店</span>
                                         </td>
                                         <td>
-                                            Bread
+                                            <img src='images/1.png' width='50' height='50'>
                                         </td>
                                         <td>
-                                            Ice cream
+                                            <img src='images/2.png' width='50' height='50'>
                                         </td>
                                         <td>
-                                            Soft drinks
+                                            <img src='images/3.png' width='50' height='50'>
                                         </td>
                                     </tr>
                                     <tr>
@@ -154,6 +160,20 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                                       </td>
                                                       <td>
                                                           <img src='images/3.png' width='50' height='50'>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td>
+                                                          產品售價
+                                                      </td>
+                                                      <td>
+                                                          $PriceA
+                                                      </td>
+                                                      <td>
+                                                          $PriceB
+                                                      </td>
+                                                      <td>
+                                                          $PriceC
                                                       </td>
                                                   </tr>
                                                   <tr>
@@ -215,6 +235,20 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                                   </tr>
                                                   <tr>
                                                       <td>
+                                                          產品售價
+                                                      </td>
+                                                      <td>
+                                                          $PriceA
+                                                      </td>
+                                                      <td>
+                                                          $PriceB
+                                                      </td>
+                                                      <td>
+                                                          $PriceC
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td>
                                                           目前庫存
                                                       </td>
                                                       <td>
@@ -268,6 +302,20 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                                       </td>
                                                       <td>
                                                           <img src='images/3.png' width='50' height='50'>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td>
+                                                          產品售價
+                                                      </td>
+                                                      <td>
+                                                          $PriceA
+                                                      </td>
+                                                      <td>
+                                                          $PriceB
+                                                      </td>
+                                                      <td>
+                                                          $PriceC
                                                       </td>
                                                   </tr>
                                                   <tr>
@@ -329,6 +377,20 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                                                   </tr>
                                                   <tr>
                                                       <td>
+                                                          產品售價
+                                                      </td>
+                                                      <td>
+                                                          $PriceA
+                                                      </td>
+                                                      <td>
+                                                          $PriceB
+                                                      </td>
+                                                      <td>
+                                                          $PriceC
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td>
                                                           目前庫存
                                                       </td>
                                                       <td>
@@ -368,7 +430,7 @@ $NowC4=getOtherGoodsC(4); $MaxC4=getotherstockC(4);
                 <!-- CTA -->
                     <section id="cta" class="main special">
                         <ul class="actions">
-                            <li><a href="controller.php?act=buy" class="button big">擴張店面</a></li>
+                            <li><a href="index.php" class="button big">首頁</a></li>
                         </ul>
                     </section>
 

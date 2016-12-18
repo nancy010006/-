@@ -1,5 +1,11 @@
 ﻿<?php
 require("status.php");
+$DeadlineA=getdeadline('a');
+$DeadlineB=getdeadline('b');
+$DeadlineC=getdeadline('c');
+$AccountA=getaccount('a');
+$AccountB=getaccount('b');
+$AccountC=getaccount('c');
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -44,35 +50,35 @@ require("status.php");
                                 </tr>
                                 <tr>
                                     <td>
-                                        Bread
+                                        <img src="images/1.png" width="50" height="50">
                                     </td>
                                     <td>
-                                        time
+                                        <?php echo $DeadlineA; ?>
                                     </td>
                                     <td>
-                                        howmany
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Ice cream
-                                    </td>
-                                    <td>
-                                        time
-                                    </td>
-                                    <td>
-                                        howmany
+                                        <?php echo $AccountA; ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Soft drinks
+                                        <img src="images/2.png" width="50" height="50">
                                     </td>
                                     <td>
-                                        time
+                                        <?php echo $DeadlineB; ?>
                                     </td>
                                     <td>
-                                        howmany
+                                        <?php echo $AccountB; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="images/3.png" width="50" height="50">
+                                    </td>
+                                    <td>
+                                        <?php echo $DeadlineC; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $AccountC; ?>
                                     </td>
                                 </tr>
                             </table>

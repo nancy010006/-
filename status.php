@@ -119,4 +119,20 @@ function getotherstockC($storeid) {
         $rs = mysqli_fetch_assoc($result);
         return $rs['boundc'];
 }
+//訂單到貨日期
+function getdeadline($name) {
+        global $conn;
+        $sql = "select deadline from orders where name='$name';";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['deadline'];
+}
+//訂單到貨數量
+function getaccount($name) {
+        global $conn;
+        $sql = "select account from orders where name='$name';";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['account'];
+}
 ?>
