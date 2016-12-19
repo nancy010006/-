@@ -22,6 +22,7 @@ echo "C:".getprice("c")."<br>";
 <a href="controller.php?act=setcost">設定成本</a>
 <a href="controller.php?act=setprice">設定售價</a>
 <a href="controller.php?act=order">進貨</a>
+<a href="controller.php?act=reducetime">運貨中</a>
 <br>
 <form action='controller.php' method='post'>
 分店一
@@ -60,10 +61,10 @@ echo "C:".getprice("c")."<br>";
 <input type='submit'>
 </form>
 <form action='controller.php' method='post'>
-進貨
+叫貨
 貨物a<input name='accounta' type='text'>
 貨物b<input name='accountb' type='text'>
 貨物c<input name='accountc' type='text'>
-<input type='hidden' name='act' value='order'>
+<input type='hidden' name='act' value='callorder'>
 <input type='submit'>
 </form>
