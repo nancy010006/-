@@ -8,6 +8,7 @@ function getMoney() {
         $rs = mysqli_fetch_assoc($result);
         return $rs['money'];
 }
+<<<<<<< HEAD
 //取得目前天數
 function getday() {
         global $conn;
@@ -16,6 +17,9 @@ function getday() {
         $rs = mysqli_fetch_assoc($result);
         return $rs['day'];
 }
+=======
+
+>>>>>>> 20af042f0c4d4c7534148ea8206f18aed2db040c
 //取得總店A存貨數量
 function getGoodsA() {
         global $conn;
@@ -40,6 +44,41 @@ function getGoodsC() {
         $rs = mysqli_fetch_assoc($result);
         return $rs['goodsc'];
 }
+<<<<<<< HEAD
+=======
+//是否開店狀態
+function getStoreStatus($storeid) {
+        global $conn;
+        $sql = "select status from store where storeid=$storeid;";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['status'];
+}
+//A上限庫存
+function getotherstockA($storeid) {
+        global $conn;
+        $sql = "select bounda from store where storeid=$storeid;";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['bounda'];
+}
+//B上限庫存
+function getotherstockB($storeid) {
+        global $conn;
+        $sql = "select boundb from store where storeid=$storeid;";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['boundb'];
+}
+//C上限庫存
+function getotherstockC($storeid) {
+        global $conn;
+        $sql = "select boundc from store where storeid=$storeid;";
+        $result = mysqli_query($conn,$sql);
+        $rs = mysqli_fetch_assoc($result);
+        return $rs['boundc'];
+}
+>>>>>>> 20af042f0c4d4c7534148ea8206f18aed2db040c
 //取得分店A存貨
 function getOtherGoodsA($storeid) {
         global $conn;
@@ -88,6 +127,7 @@ function getcost($name){
         $rs = mysqli_fetch_assoc($result);
         return $rs['cost'];
 }
+<<<<<<< HEAD
 function getStoreStatus($storeid) {
         global $conn;
         $sql = "select status from store where storeid=$storeid;";
@@ -119,4 +159,6 @@ function getotherstockC($storeid) {
         $rs = mysqli_fetch_assoc($result);
         return $rs['boundc'];
 }
+=======
+>>>>>>> 20af042f0c4d4c7534148ea8206f18aed2db040c
 ?>
